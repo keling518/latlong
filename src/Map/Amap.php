@@ -4,7 +4,7 @@ namespace Encore\Admin\Latlong\Map;
 
 class Amap extends AbstractMap
 {
-    protected $api = '//webapi.amap.com/maps?v=1.4.12&key=%s';
+    protected $api = 'https//webapi.amap.com/maps?v=2.0&key=%s';
 
     public function applyScript(array $id)
     {
