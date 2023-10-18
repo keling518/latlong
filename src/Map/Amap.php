@@ -2,12 +2,35 @@
 
 namespace Encore\Admin\Latlong\Map;
 
+use Encore\Admin\Admin;
+
 class Amap extends AbstractMap
 {
     protected $api = 'https://webapi.amap.com/maps?v=1.4.15&key=%s';
 
+    protected $secret;
+
+    public function __construct($key = '', $secret = '')
+    {
+        if ($key) {
+            $this->api = sprintf($this->api, $key);
+        }
+        if ($secret) {
+            $this->secret = $secret;
+        }
+    }
+
     public function applyScript(array $id)
     {
+        Admin::html(<<<EOT
+<script>
+    window._AMapSecurityConfig = {
+    securityJsCode:"{$this->secret}",
+};
+</script>
+EOT
+        );
+
         return <<<EOT
 (function() {
     
